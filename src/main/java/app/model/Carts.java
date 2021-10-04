@@ -21,19 +21,50 @@ public class Carts {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	public Integer id;
+	private Integer id;
 	
 	@NotNull
 	@Column(name = "user_id")
-	public Integer userId;
+	private Integer userId;
 	
 	@NotNull
 	@Column(name = "creation_dt")
-	public Date creationDate;
+	private Date creationDate;
 	
 	@NotNull
 	@Convert(converter = CartStatusConverter.class)
 	@Column(name = "status")
-	public CartStatus status;
+	private CartStatus status;
 	
+	public Integer getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public Integer getUserId() {
+		return userId;
+	}
+	
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	
+	public Date getCreationDate() {
+		return creationDate;
+	}
+	
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+	
+	public CartStatus getStatus() {
+		return status;
+	}
+	
+	public void setStatus(CartStatus status) {
+		this.status = status;
+	}
 }

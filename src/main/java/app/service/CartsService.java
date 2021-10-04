@@ -1,8 +1,6 @@
 package app.service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,12 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import app.converter.CartStatus;
 import app.dto.CartDto;
-import app.dto.CartProductsListDto;
-import app.model.CartProducts;
 import app.model.Carts;
-import app.repository.CartProductsRepository;
 import app.repository.CartsRepository;
-import app.repository.ProductsRepository;
 
 @Service
 @Transactional
@@ -25,40 +19,31 @@ public class CartsService {
 	private CartsRepository repository;
 	
 	@Autowired
-	private CartProductsRepository cprepository;
+	private CartProductsService cartProductsService;
 	
-	@Autowired
-	private ProductsRepository prepository;
+	public Carts findActiveByUser(int userId) {
+		return repository.findAll().stream()
+				.filter(cart -> cart.getUserId() == userId)
+				.filter(cart -> cart.getStatus() == CartStatus.ACTIVE)
+				.findFirst()
+				.get();
+	}
 	
-	public CartDto getByUser(int userId) {
-		
-		CartDto res = new CartDto(); 
-				
-		res.cart = repository.findByUser(userId);
-		
-		if (res.cart == null) {
-			Carts c = new Carts();
-			c.creationDate = new Date();
-			c.userId = userId;
-			c.status = CartStatus.ACTIVE;
-			res.cart = repository.save(c);
+	public CartDto findDtoByUser(int userId) {
+		Carts cart = findActiveByUser(userId);
+		if (cart == null) {
+			cart = new Carts();
+			cart.setCreationDate(new Date());
+			cart.setUserId(userId);
+			cart.setStatus(CartStatus.ACTIVE);
+			cart = repository.save(cart);
 		}
 		
-		List<CartProducts> lst = cprepository.findByCart(res.cart.id);
-		List<CartProductsListDto> lstDto = new ArrayList<>();
+		CartDto result = new CartDto();
+		result.cart = cart;
+		result.products = cartProductsService.getCartProducts(cart);
 		
-		for (int i = 0; i < lst.size(); i++) {
-			CartProducts obj = lst.get(i);
-			CartProductsListDto l = new CartProductsListDto();
-			l.name = prepository.getProduct(obj.productId).name;
-			l.productAmount = obj.productAmount;
-			l.productPrice = obj.productPrice;
-			lstDto.add(l);
-		}
-		
-		res.products = lstDto;
-		
-		return res;
+		return result;
 	}
 	
 }

@@ -15,22 +15,62 @@ public class CartProducts {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	public Integer id;
+	private Integer id;
 	
 	@NotNull
 	@Column(name = "cart_id")
-	public Integer cartId;
+	private Integer cartId;
 	
 	@NotNull
 	@Column(name = "product_id")
-	public Integer productId;
+	private Integer productId;
 	
 	@NotNull
 	@Column(name = "product_price")
-	public Integer productPrice;
+	private Integer productPrice;
 	
 	@NotNull
 	@Column(name = "product_amount")
-	public Integer productAmount;
+	private Integer productAmount;
+	
+	public Integer getId() {
+		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	public Integer getCartId() {
+		return cartId;
+	}
+	
+	public void setCartId(Integer cartId) {
+		this.cartId = cartId;
+	}
+	
+	public Integer getProductId() {
+		return productId;
+	}
+	
+	public void setProductId(Integer productId) {
+		this.productId = productId;
+	}
+	
+	public Integer getProductPrice() {
+		return productPrice;
+	}
+	
+	public void setProductPrice(Integer productPrice) {
+		this.productPrice = productPrice;
+	}
+	
+	public Integer getProductAmount() {
+		return productAmount;
+	}
+	
+	public void setProductAmount(Integer productAmount) {
+		this.productAmount = productAmount;
+	}
 	
 }

@@ -7,7 +7,7 @@ import app.model.Products;
 
 public interface ProductsRepository extends JpaRepository<Products, Integer> {
 	
-	@Query(value = "select * from products where id = ?1", nativeQuery = true)
-	public Products getProduct(int productId);
+	/*@Query(value = "select * from products where id = ?1", nativeQuery = true)
+	public Products getProduct(int productId);*/
 	
 }

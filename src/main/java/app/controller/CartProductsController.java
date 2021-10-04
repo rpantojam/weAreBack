@@ -20,9 +20,9 @@ public class CartProductsController {
 	@Autowired
 	private CartProductsService service;
 	
-	@PostMapping("/add")
-	public CartProducts add(@RequestBody CartProductsDto dto) throws Exception {
-		return service.add(dto);
+	@PostMapping("/addProductToCart")
+	public CartProducts addProductToCart(@RequestBody CartProductsDto dto) throws Exception {
+		return service.addProductToCart(dto);
 	}
 	
 }

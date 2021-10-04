@@ -21,7 +21,7 @@ public class CartsController {
 	
 	@GetMapping("/getByUser")
 	public CartDto getByUser(@RequestParam(name="userId") int userId) {
-		return service.getByUser(userId);
+		return service.findDtoByUser(userId);
 	}
 	
 }

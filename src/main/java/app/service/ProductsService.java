@@ -28,4 +28,7 @@ public class ProductsService {
 		return repository.save(prod);
 	}
 	
+	public String getProductName(Integer productId) {
+		return repository.getById(productId).getName();
+	}
 }
